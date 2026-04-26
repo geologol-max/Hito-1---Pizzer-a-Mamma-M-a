@@ -1,6 +1,6 @@
 {
   "name": "Pizzería Mamma Mía",
-  "description": "Hito 1 - Introducción a React. Un catálogo de pizzas con navegación condicional y componentes modulares.",
+  "description": "Hito 2 - Manejo de estados y eventos en React. Implementación de formularios de registro y login con validaciones.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

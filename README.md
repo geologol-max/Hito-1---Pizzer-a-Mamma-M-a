@@ -24,7 +24,10 @@ El proyecto consiste en una aplicación de catálogo de pizzas desarrollada con 
 3. Ejecutar `npm run dev` para iniciar el servidor de desarrollo.
 4. El proyecto será visible en `http://localhost:3000`.
 
-### Puntos Clave Revisados
-- **Renderizado Condicional**: El Navbar muestra diferentes opciones según el valor de la constante `token` (simulando sesión iniciada o no).
-- **Formateo de Moneda**: Todos los precios utilizan `toLocaleString` para mostrar separadores de miles (ej: $25.000).
-- **Props**: El componente `CardPizza` recibe nombre, precio, ingredientes e imagen como propiedades desde `Home.tsx`.
+## Hito 2 - Estados y Eventos
+En esta etapa se agregaron los componentes de autenticación con manejo de estados (`useState`) y validaciones de formularios:
+- `src/components/RegisterPage.tsx`: Formulario de registro con validaciones de campos obligatorios, longitud de contraseña (6+ caracteres) e igualdad de contraseñas.
+- `src/components/LoginPage.tsx`: Formulario de login con validaciones de campos obligatorios y longitud de contraseña.
+
+### Cómo cambiar de vista
+Dado que aún no se implementa React Router (corresponde a hitos futuros), se ha añadido un selector flotante en la esquina inferior derecha para alternar entre **Home**, **Registro** y **Login** para facilitar la evaluación.
