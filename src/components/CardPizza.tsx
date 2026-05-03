@@ -1,13 +1,16 @@
+import React from 'react';
 import { ShoppingCart, Eye, Pizza } from 'lucide-react';
 
 interface CardPizzaProps {
+  id: string;
   name: string;
   price: number;
   ingredients: string[];
   img: string;
+  onAdd: (id: string) => void;
 }
 
-const CardPizza = ({ name, price, ingredients, img }: CardPizzaProps) => {
+const CardPizza: React.FC<CardPizzaProps> = ({ id, name, price, ingredients, img, onAdd }) => {
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
   };
@@ -28,9 +31,13 @@ const CardPizza = ({ name, price, ingredients, img }: CardPizzaProps) => {
         
         <div className="py-3 flex flex-col items-center flex-1">
           <span className="text-xs text-slate-400 uppercase tracking-widest mb-1">Ingredientes:</span>
-          <p className="text-slate-600 text-xs italic text-center">
-            🍕 {ingredients.join(', ')}
-          </p>
+          <ul className="text-slate-600 text-xs italic text-center">
+            {ingredients.map((ingredient, index) => (
+              <li key={index} className="flex items-center justify-center gap-1">
+                🍕 {ingredient}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="pt-2 border-t border-slate-100">
@@ -42,7 +49,10 @@ const CardPizza = ({ name, price, ingredients, img }: CardPizzaProps) => {
             <button className="flex-1 border border-slate-800 text-slate-800 py-2 rounded-md text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer flex items-center justify-center gap-1.5">
               Ver más <Eye size={14} />
             </button>
-            <button className="flex-1 bg-slate-800 text-white py-2 rounded-md text-sm font-semibold hover:bg-slate-900 transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+            <button 
+              onClick={() => onAdd(id)}
+              className="flex-1 bg-slate-800 text-white py-2 rounded-md text-sm font-semibold hover:bg-slate-900 transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+            >
               Añadir <ShoppingCart size={14} />
             </button>
           </div>
