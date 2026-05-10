@@ -1,12 +1,29 @@
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import CardPizza from './CardPizza';
-import { pizzas } from '../pizzas';
+import { Pizza } from '../types';
 
 interface HomeProps {
   onAddToCart: (id: string) => void;
 }
 
 const Home = ({ onAddToCart }: HomeProps) => {
+  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+
+  useEffect(() => {
+    const fetchPizzas = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/pizzas');
+        const data = await response.json();
+        setPizzas(data);
+      } catch (error) {
+        console.error('Error fetching pizzas:', error);
+      }
+    };
+
+    fetchPizzas();
+  }, []);
+
   return (
     <main className="flex-1 bg-slate-50 pb-12">
       <Header />

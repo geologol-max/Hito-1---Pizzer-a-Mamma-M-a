@@ -1,6 +1,6 @@
 {
   "name": "Pizzería Mamma Mía",
-  "description": "Hito 2 - Manejo de estados y eventos en React. Implementación de formularios de registro y login con validaciones.",
+  "description": "Hito 4 - Consumo de APIs con React. Implementación de peticiones asíncronas con useEffect y fetch para cargar datos dinámicos.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

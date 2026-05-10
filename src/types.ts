@@ -4,6 +4,7 @@ export interface Pizza {
   price: number;
   ingredients: string[];
   img: string;
+  desc?: string;
 }
 
 export interface CartItem {

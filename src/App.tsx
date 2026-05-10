@@ -5,11 +5,12 @@ import Cart from './components/Cart';
 import Home from './components/Home';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
+import Pizza from './components/Pizza';
 import { pizzaCart as initialCart, pizzas } from './pizzas';
 import { CartItem } from './types';
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'cart' | 'register' | 'login'>('home');
+  const [view, setView] = useState<'home' | 'cart' | 'register' | 'login' | 'pizza'>('home');
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const increaseCount = (id: string) => {
@@ -69,6 +70,13 @@ export default function App() {
       )}
       {view === 'register' && <RegisterPage />}
       {view === 'login' && <LoginPage />}
+      {view === 'pizza' && <Pizza />}
+
+      {/* Selector de vistas para evaluación del Hito 4 */}
+      <div className="fixed bottom-20 left-4 flex flex-col gap-2 z-50">
+        <button onClick={() => setView('home')} className="bg-slate-800 text-white text-xs px-3 py-1 rounded-full opacity-70 hover:opacity-100 cursor-pointer">Catálogo (Home)</button>
+        <button onClick={() => setView('pizza')} className="bg-orange-600 text-white text-xs px-3 py-1 rounded-full opacity-70 hover:opacity-100 cursor-pointer">Detalle Pizza (Hito 4)</button>
+      </div>
 
       <Footer />
     </div>

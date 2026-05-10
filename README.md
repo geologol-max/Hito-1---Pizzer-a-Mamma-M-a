@@ -24,10 +24,12 @@ El proyecto consiste en una aplicación de catálogo de pizzas desarrollada con 
 3. Ejecutar `npm run dev` para iniciar el servidor de desarrollo.
 4. El proyecto será visible en `http://localhost:3000`.
 
-## Hito 3 - Pizzería Mamma Mía (Interactividad Completa)
-En esta etapa se ha logrado la integración total de los componentes mediante la elevación de estado (Lift State Up) en `App.tsx`:
-- **Estado Global Simulado**: El carrito (`cart`) se maneja en `App.tsx`, lo que permite que el `Navbar`, `Home` y `Cart` compartan la misma información en tiempo real.
-- **Botón Añadir**: Las tarjetas en `Home` ahora pueden agregar productos al carrito dinámicamente.
-- **Sincronización del Navbar**: El total mostrado en la barra de navegación se actualiza automáticamente al modificar el carrito.
-- **Navegación Fluida**: Se permite volver al catálogo desde el carrito vacío, cumpliendo con los flujos de usuario esperados.
-- **Tipado Fuerte**: Se crearon interfaces en `src/types.ts` para asegurar la integridad de los datos.
+## Hito 4 - Consumo de APIs con React
+En esta etapa se implementó la conexión con un backend externo para cargar los datos dinámicamente:
+- **Home.tsx**: Ahora consume la lista completa de pizzas desde `http://localhost:5000/api/pizzas` usando `useEffect` y `fetch`.
+- **Pizza.tsx**: Nuevo componente que muestra el detalle de una sola pizza (p001) consultando `http://localhost:5000/api/pizzas/p001`.
+- **Manejo de Errores**: Se incluyeron bloques `try/catch` para gestionar posibles fallas en las peticiones.
+- **Transiciones y Feedback**: Se añadió un estado de carga visual mientras se obtienen los datos de la API.
+
+### Notas de Evaluación
+Para facilitar la revisión, se ha incluido un pequeño menú flotante en la esquina inferior izquierda que permite alternar entre la vista del catálogo dinámico y la vista de detalle de pizza requerida en este hito.
