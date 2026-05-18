@@ -1,15 +1,15 @@
-import { Minus, Plus, ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface CartProps {
-  setView?: (view: 'home' | 'cart' | 'register' | 'login') => void;
   cart: CartItem[];
   increaseCount: (id: string) => void;
   decreaseCount: (id: string) => void;
   total: number;
 }
 
-const Cart = ({ setView, cart, increaseCount, decreaseCount, total }: CartProps) => {
+const Cart = ({ cart, increaseCount, decreaseCount, total }: CartProps) => {
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
   };
@@ -17,9 +17,14 @@ const Cart = ({ setView, cart, increaseCount, decreaseCount, total }: CartProps)
   return (
     <div className="flex-1 bg-slate-50 p-8 flex flex-col items-center">
       <div className="bg-white p-8 rounded-xl shadow-lg border border-slate-200 w-full max-w-2xl">
-        <h2 className="text-2xl font-bold italic uppercase tracking-wider text-slate-800 mb-6 flex items-center gap-2">
-          <ShoppingCart className="text-orange-500" /> Detalles del pedido:
-        </h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold italic uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <ShoppingCart className="text-orange-500" /> Detalles del pedido:
+          </h2>
+          <Link to="/" className="text-slate-400 hover:text-orange-500 transition-colors flex items-center gap-1 text-sm font-bold uppercase italic tracking-widest">
+            <ArrowLeft size={16} /> Seguir comprando
+          </Link>
+        </div>
 
         {cart.length > 0 ? (
           <div className="space-y-6">
@@ -63,12 +68,12 @@ const Cart = ({ setView, cart, increaseCount, decreaseCount, total }: CartProps)
         ) : (
           <div className="text-center py-12">
             <p className="text-slate-400 italic mb-4 text-lg">Tu carrito está vacío</p>
-            <button 
-              onClick={() => setView?.('home')}
+            <Link 
+              to="/"
               className="text-orange-500 font-bold hover:underline cursor-pointer"
             >
               Ir a ver pizzas
-            </button>
+            </Link>
           </div>
         )}
       </div>

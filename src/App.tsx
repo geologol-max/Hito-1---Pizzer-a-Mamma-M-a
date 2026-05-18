@@ -1,16 +1,18 @@
 import { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Cart from './components/Cart';
-import Home from './components/Home';
-import RegisterPage from './components/RegisterPage';
-import LoginPage from './components/LoginPage';
-import Pizza from './components/Pizza';
-import { pizzaCart as initialCart, pizzas } from './pizzas';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Pizza from './pages/Pizza';
+import Cart from './pages/Cart';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
+import { pizzas } from './pizzas';
 import { CartItem } from './types';
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'cart' | 'register' | 'login' | 'pizza'>('home');
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const increaseCount = (id: string) => {
@@ -56,27 +58,18 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans antialiased bg-gray-50">
-      <Navbar setView={setView} total={total} />
+      <Navbar total={total} />
       
-      {view === 'home' && <Home onAddToCart={addToCart} />}
-      {view === 'cart' && (
-        <Cart 
-          setView={setView} 
-          cart={cart} 
-          increaseCount={increaseCount} 
-          decreaseCount={decreaseCount} 
-          total={total}
-        />
-      )}
-      {view === 'register' && <RegisterPage />}
-      {view === 'login' && <LoginPage />}
-      {view === 'pizza' && <Pizza />}
-
-      {/* Selector de vistas para evaluación del Hito 4 */}
-      <div className="fixed bottom-20 left-4 flex flex-col gap-2 z-50">
-        <button onClick={() => setView('home')} className="bg-slate-800 text-white text-xs px-3 py-1 rounded-full opacity-70 hover:opacity-100 cursor-pointer">Catálogo (Home)</button>
-        <button onClick={() => setView('pizza')} className="bg-orange-600 text-white text-xs px-3 py-1 rounded-full opacity-70 hover:opacity-100 cursor-pointer">Detalle Pizza (Hito 4)</button>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home onAddToCart={addToCart} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart cart={cart} increaseCount={increaseCount} decreaseCount={decreaseCount} total={total} />} />
+        <Route path="/pizza/p001" element={<Pizza />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
 
       <Footer />
     </div>

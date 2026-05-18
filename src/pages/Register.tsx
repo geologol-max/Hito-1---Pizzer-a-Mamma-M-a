@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { UserPlus, AlertCircle, CheckCircle2 } from 'lucide-react';
 
-const RegisterPage = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -104,4 +104,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default Register;

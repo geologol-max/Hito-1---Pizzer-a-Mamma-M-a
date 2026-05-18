@@ -24,19 +24,19 @@ El proyecto consiste en una aplicación de catálogo de pizzas desarrollada con 
 3. Ejecutar `npm run dev` para iniciar el servidor de desarrollo.
 4. El proyecto será visible en `http://localhost:3000`.
 
-## 📝 Nota para el Evaluador: Hito 4 - Consumo de APIs con React (Nivel: Completamente Logrado)
+## Hito 5 - React Router I
+En esta etapa se implementó el sistema de navegación utilizando React Router:
+- **Navegación Declarativa**: Se reemplazó el manejo de estados manuales por rutas reales (`/`, `/login`, `/register`, `/cart`, `/pizza/p001`, `/profile`).
+- **Páginas vs Componentes**: Se reorganizó la estructura del proyecto moviendo las vistas principales a la carpeta `src/pages`.
+- **Nuevos Componentes**: Se crearon las páginas `Profile.tsx` (con información estática del usuario) y `NotFound.tsx` (manejador de errores 404 personalizado).
+- **Navbar Dinámico**: El menú de navegación utiliza `NavLink` para resaltar la ruta activa y permitir transiciones sin recargar la página.
+- **Ruta de Detalle**: Se habilitó la ruta `/pizza/p001` para visualizar la información extendida de un producto específico.
 
-El presente proyecto ha sido actualizado para cumplir al **100% con los criterios de evaluación (Completamente Logrado - CL)** correspondientes al **Hito 4**. A continuación, se detalla el cumplimiento de la rúbrica:
-
-### 1. Componente `Home.tsx`
-- **Consumo de API y renderizado (2 pts):** El componente consulta exitosamente el endpoint `GET http://localhost:5000/api/pizzas` y renderiza el catálogo completo de tarjetas de pizza de manera dinámica.
-- **Uso de `useEffect` (2 pts):** Se implementó correctamente el hook `useEffect` para gatillar el `fetch` al momento de montar el componente, almacenando los resultados en el estado local.
-
-### 2. Componente `Pizza.tsx`
-- **Consumo de API y renderizado (2 pts):** El componente consulta el endpoint específico `GET http://localhost:5000/api/pizzas/p001` y muestra la información detallada de la pizza.
-- **Uso de `useEffect` (2 pts):** Al igual que en Home, se utiliza el hook `useEffect` para cargar la información de forma asíncrona al montar el componente.
-- **Visualización de la información (2 pts):** La vista renderiza satisfactoriamente el **nombre**, **precio** (con formato moneda), **ingredientes**, **imagen** y **descripción** de la pizza.
-
-> 💡 **Tip de Evaluación:** Para facilitar tu revisión sin necesidad de navegar por las rutas, he habilitado un pequeño **menú flotante** en la esquina inferior izquierda de la pantalla. Este menú te permitirá alternar rápidamente entre la vista "Catálogo (Home)" y la vista "Detalle Pizza (Hito 4)" para verificar ambos componentes requeridos.
-
-¡Espero que disfrutes la revisión!
+### Rutas Configuradas
+- `/`: Inicio / Catálogo de Pizzas.
+- `/register`: Formulario de registro.
+- `/login`: Formulario de inicio de sesión.
+- `/cart`: Carrito de compras con persistencia de estado.
+- `/pizza/p001`: Detalle de la pizza Napolitana (estático por ahora).
+- `/profile`: Perfil del usuario.
+- `*`: Redirección a página 404 personalizada.

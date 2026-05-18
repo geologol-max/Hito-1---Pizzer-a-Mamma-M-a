@@ -1,5 +1,6 @@
 import React from 'react';
-import { ShoppingCart, Eye, Pizza } from 'lucide-react';
+import { ShoppingCart, Eye, Pizza as PizzaIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface CardPizzaProps {
   id: string;
@@ -27,7 +28,7 @@ const CardPizza: React.FC<CardPizzaProps> = ({ id, name, price, ingredients, img
       </div>
       
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2">Pizza {name}</h3>
+        <h3 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2 capitalize">Pizza {name}</h3>
         
         <div className="py-3 flex flex-col items-center flex-1">
           <span className="text-xs text-slate-400 uppercase tracking-widest mb-1">Ingredientes:</span>
@@ -46,9 +47,12 @@ const CardPizza: React.FC<CardPizzaProps> = ({ id, name, price, ingredients, img
           </div>
           
           <div className="flex gap-2 pt-2">
-            <button className="flex-1 border border-slate-800 text-slate-800 py-2 rounded-md text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer flex items-center justify-center gap-1.5">
+            <Link 
+              to="/pizza/p001" 
+              className="flex-1 border border-slate-800 text-slate-800 py-2 rounded-md text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer flex items-center justify-center gap-1.5 no-underline"
+            >
               Ver más <Eye size={14} />
-            </button>
+            </Link>
             <button 
               onClick={() => onAdd(id)}
               className="flex-1 bg-slate-800 text-white py-2 rounded-md text-sm font-semibold hover:bg-slate-900 transition-colors cursor-pointer flex items-center justify-center gap-1.5"
