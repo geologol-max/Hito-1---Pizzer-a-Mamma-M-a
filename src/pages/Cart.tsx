@@ -1,15 +1,16 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
-import { CartItem } from '../types';
+import { CartContext } from '../context/CartContext';
 
-interface CartProps {
-  cart: CartItem[];
-  increaseCount: (id: string) => void;
-  decreaseCount: (id: string) => void;
-  total: number;
-}
+const Cart = () => {
+  const cartCtx = useContext(CartContext);
 
-const Cart = ({ cart, increaseCount, decreaseCount, total }: CartProps) => {
+  const cart = cartCtx ? cartCtx.cart : [];
+  const increaseCount = cartCtx ? cartCtx.increaseCount : () => {};
+  const decreaseCount = cartCtx ? cartCtx.decreaseCount : () => {};
+  const total = cartCtx ? cartCtx.total : 0;
+
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
   };

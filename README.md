@@ -40,3 +40,11 @@ En esta etapa se implementó el sistema de navegación utilizando React Router:
 - `/pizza/p001`: Detalle de la pizza Napolitana (estático por ahora).
 - `/profile`: Perfil del usuario.
 - `*`: Redirección a página 404 personalizada.
+
+## Hito 6 - Context API (Manejo de Estado Global)
+En esta etapa se implementó el almacenamiento y gestión de estados de forma global utilizando la API de Contextos de React para evitar el sobreuso de paso de propiedades (*prop drilling*):
+- **CartContext & CartProvider**: Centraliza todo el estado del carrito de compras (`cart`), funciones de agregación (`addToCart`), sumatoria de unidades (`increaseCount`), reducción y eliminación automática si el conteo llega a cero (`decreaseCount`), cálculo en tiempo real del costo de la compra (`total`), y la cantidad total de unidades (`totalItems`).
+- **PizzaContext & PizzaProvider**: Automatiza el consumo de la API de pizzas (`http://localhost:5000/api/pizzas`) y el detalle por identificador (`/api/pizzas/:id`), manejando loaders visuales, capturas en bloques de error, y reintentos (cumpliendo con el requerimiento opcional 6 de manera profesional).
+- **Navbar Consumidor**: Sintoniza el subtotal de compras con el estado global de forma reactiva.
+- **Detalle de Pizza Dinámico**: El componente `Pizza.tsx` y el catálogo `Home.tsx` consumen este almacén, permitiendo al usuario añadir pizzas desde cualquiera de las dos pantallas con un solo clic.
+

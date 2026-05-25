@@ -1,11 +1,11 @@
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Pizza, User, LogIn, UserPlus, LogOut, ShoppingCart } from 'lucide-react';
+import { CartContext } from '../context/CartContext';
 
-interface NavbarProps {
-  total: number;
-}
-
-const Navbar = ({ total }: NavbarProps) => {
+const Navbar = () => {
+  const cartContext = useContext(CartContext);
+  const total = cartContext ? cartContext.total : 0;
   const token = false;
 
   const formatCurrency = (value: number) => {

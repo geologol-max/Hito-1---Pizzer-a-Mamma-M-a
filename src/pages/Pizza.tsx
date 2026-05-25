@@ -1,32 +1,45 @@
-import { useState, useEffect } from 'react';
-import { Pizza as PizzaType } from '../types';
-import { ShoppingCart, Eye } from 'lucide-react';
+import { useEffect, useContext } from 'react';
+import { ShoppingCart } from 'lucide-react';
+import { PizzaContext } from '../context/PizzaContext';
+import { CartContext } from '../context/CartContext';
 
 const Pizza = () => {
-  const [pizza, setPizza] = useState<PizzaType | null>(null);
+  const pizzaCtx = useContext(PizzaContext);
+  const cartCtx = useContext(CartContext);
+
+  const pizza = pizzaCtx ? pizzaCtx.pizzaDetails : null;
+  const loading = pizzaCtx ? pizzaCtx.loading : false;
+  const error = pizzaCtx ? pizzaCtx.error : null;
+  const addToCart = cartCtx ? cartCtx.addToCart : () => {};
 
   useEffect(() => {
-    const fetchPizza = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/pizzas/p001');
-        const data = await response.json();
-        setPizza(data);
-      } catch (error) {
-        console.error('Error fetching pizza details:', error);
-      }
-    };
-
-    fetchPizza();
+    if (pizzaCtx) {
+      pizzaCtx.fetchPizzaDetails('p001');
+    }
   }, []);
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
   };
 
-  if (!pizza) {
+  if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center bg-slate-50">
         <p className="text-slate-400 italic animate-pulse">Cargando deliciosa pizza...</p>
+      </div>
+    );
+  }
+
+  if (error || !pizza) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 p-8">
+        <p className="text-red-500 font-semibold mb-4">Error: {error || 'No se pudo cargar la pizza'}</p>
+        <button 
+          onClick={() => pizzaCtx?.fetchPizzaDetails('p001')} 
+          className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-colors cursor-pointer"
+        >
+          Reintentar
+        </button>
       </div>
     );
   }
@@ -82,7 +95,10 @@ const Pizza = () => {
             </div>
 
             <div className="flex gap-2">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md active:scale-95 flex items-center gap-2 cursor-pointer uppercase text-xs tracking-widest">
+              <button 
+                onClick={() => addToCart(pizza)}
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md active:scale-95 flex items-center gap-2 cursor-pointer uppercase text-xs tracking-widest"
+              >
                 Añadir <ShoppingCart size={16} />
               </button>
             </div>

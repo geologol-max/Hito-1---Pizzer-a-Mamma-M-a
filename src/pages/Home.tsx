@@ -1,28 +1,39 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import Header from '../components/Header';
 import CardPizza from '../components/CardPizza';
-import { Pizza } from '../types';
+import { PizzaContext } from '../context/PizzaContext';
+import { CartContext } from '../context/CartContext';
 
-interface HomeProps {
-  onAddToCart: (id: string) => void;
-}
+const Home = () => {
+  const pizzaCtx = useContext(PizzaContext);
+  const cartCtx = useContext(CartContext);
 
-const Home = ({ onAddToCart }: HomeProps) => {
-  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+  const pizzas = pizzaCtx ? pizzaCtx.pizzas : [];
+  const loading = pizzaCtx ? pizzaCtx.loading : false;
+  const error = pizzaCtx ? pizzaCtx.error : null;
+  const addToCart = cartCtx ? cartCtx.addToCart : () => {};
 
-  useEffect(() => {
-    const fetchPizzas = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/pizzas');
-        const data = await response.json();
-        setPizzas(data);
-      } catch (error) {
-        console.error('Error fetching pizzas:', error);
-      }
-    };
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center bg-slate-50 min-h-[400px]">
+        <p className="text-slate-400 italic animate-pulse">Cargando deliciosas pizzas...</p>
+      </div>
+    );
+  }
 
-    fetchPizzas();
-  }, []);
+  if (error) {
+    return (
+      <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 min-h-[400px] p-8">
+        <p className="text-red-500 font-semibold mb-4">Error: {error}</p>
+        <button 
+          onClick={() => pizzaCtx?.fetchPizzas()} 
+          className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-colors cursor-pointer"
+        >
+          Reintentar
+        </button>
+      </div>
+    );
+  }
 
   return (
     <main className="flex-1 bg-slate-50 pb-12">
@@ -37,7 +48,12 @@ const Home = ({ onAddToCart }: HomeProps) => {
             price={pizza.price}
             ingredients={pizza.ingredients}
             img={pizza.img}
-            onAdd={onAddToCart}
+            onAdd={(id) => {
+              const selectedPizza = pizzas.find((p) => p.id === id);
+              if (selectedPizza) {
+                addToCart(selectedPizza);
+              }
+            }}
           />
         ))}
       </div>
