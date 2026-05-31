@@ -2,11 +2,15 @@ import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Pizza, User, LogIn, UserPlus, LogOut, ShoppingCart } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
   const cartContext = useContext(CartContext);
+  const userContext = useContext(UserContext);
+
   const total = cartContext ? cartContext.total : 0;
-  const token = false;
+  const token = userContext ? userContext.token : false;
+  const logout = userContext ? userContext.logout : () => {};
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
@@ -39,6 +43,7 @@ const Navbar = () => {
                 <User size={16} /> Profile
               </NavLink>
               <button 
+                onClick={logout}
                 className="px-4 py-1.5 rounded-md text-sm font-medium border border-slate-700 hover:bg-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer text-white"
               >
                 <LogOut size={16} /> Logout

@@ -1,7 +1,11 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
 import { LogIn, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { UserContext } from '../context/UserContext';
 
 const Login = () => {
+  const userCtx = useContext(UserContext);
+  const login = userCtx ? userCtx.login : () => {};
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
@@ -26,6 +30,7 @@ const Login = () => {
 
     // Success logic
     setSuccess(true);
+    login();
   };
 
   return (

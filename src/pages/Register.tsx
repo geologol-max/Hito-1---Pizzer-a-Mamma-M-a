@@ -1,7 +1,11 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
 import { UserPlus, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { UserContext } from '../context/UserContext';
 
 const Register = () => {
+  const userCtx = useContext(UserContext);
+  const login = userCtx ? userCtx.login : () => {};
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -32,6 +36,7 @@ const Register = () => {
 
     // Success logic
     setSuccess(true);
+    login();
     // Reset form optionally or keep it for feedback
     // setEmail(''); setPassword(''); setConfirmPassword('');
   };

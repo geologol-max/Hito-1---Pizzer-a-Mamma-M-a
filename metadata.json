@@ -1,6 +1,6 @@
 {
   "name": "Pizzería Mamma Mía",
-  "description": "Hito 4 - Consumo de APIs con React. Implementación de peticiones asíncronas con useEffect y fetch para cargar datos dinámicos.",
+  "description": "Hito 7 - React Router II. Ruta de detalle de pizzas dinámica con useParams y protección de secciones privadas en base al estado del token.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

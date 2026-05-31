@@ -1,9 +1,11 @@
 import { useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
 import { PizzaContext } from '../context/PizzaContext';
 import { CartContext } from '../context/CartContext';
 
 const Pizza = () => {
+  const { id } = useParams();
   const pizzaCtx = useContext(PizzaContext);
   const cartCtx = useContext(CartContext);
 
@@ -13,10 +15,10 @@ const Pizza = () => {
   const addToCart = cartCtx ? cartCtx.addToCart : () => {};
 
   useEffect(() => {
-    if (pizzaCtx) {
-      pizzaCtx.fetchPizzaDetails('p001');
+    if (pizzaCtx && id) {
+      pizzaCtx.fetchPizzaDetails(id);
     }
-  }, []);
+  }, [id]);
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString('es-CL');
@@ -35,7 +37,7 @@ const Pizza = () => {
       <div className="flex-1 flex flex-col items-center justify-center bg-slate-50 p-8">
         <p className="text-red-500 font-semibold mb-4">Error: {error || 'No se pudo cargar la pizza'}</p>
         <button 
-          onClick={() => pizzaCtx?.fetchPizzaDetails('p001')} 
+          onClick={() => id && pizzaCtx?.fetchPizzaDetails(id)} 
           className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-lg transition-colors cursor-pointer"
         >
           Reintentar

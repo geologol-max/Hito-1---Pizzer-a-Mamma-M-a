@@ -48,3 +48,14 @@ En esta etapa se implementó el almacenamiento y gestión de estados de forma gl
 - **Navbar Consumidor**: Sintoniza el subtotal de compras con el estado global de forma reactiva.
 - **Detalle de Pizza Dinámico**: El componente `Pizza.tsx` y el catálogo `Home.tsx` consumen este almacén, permitiendo al usuario añadir pizzas desde cualquiera de las dos pantallas con un solo clic.
 
+## Hito 7 - React Router II & Rutas Protegidas
+En esta fase se han profundizado los alcances de la navegación y control de acceso utilizando hooks avanzados de React Router y manejadores de estado globales adicionales:
+- **useParams en Detalle Dinámico**: Se reconfiguró la ruta de detalles de pizzas a `/pizza/:id` obteniendo el parámetro de la URL mediante el hook `useParams()`. El componente `Pizza.tsx` ahora consulta dinámicamente cada pizza por `id`. 
+- **UserContext & UserProvider**: Se creó un contexto global para persistir la autenticación del usuario. El estado `token` se inicia por defecto en `true` y expone métodos de `logout()` y `login()` para alternar de forma segura entre sesiones.
+- **Navbar & Navegación Condicional**: Consume `UserContext` para mostrar de manera condicional los accesos privados (`Profile`, `Logout`) o públicos (`Login`, `Register`). La opción `Logout` ejecuta directamente el método de cierre de sesión global.
+- **Cart Persistente Protegido**: El botón de "Pagar" en la página `Cart` se deshabilita dinámicamente si `token` es `false`, añadiendo avisos estilizados en la UI para mejorar el guiado y la experiencia de usuario.
+- **Rutas Protegidas en App.tsx**: Se implementaron redirecciones programáticas condicionales utilizando `<Navigate />`:
+  - Si el `token` es `false`, intentar ingresar a `/profile` redirige a `/login`.
+  - Si el `token` es `true`, los usuarios activos no pueden visitar `/login` o `/register`, barriendo el acceso y devolviéndoles directamente al inicio (`/`).
+- **Control Integrado en Formularios**: Al enviar de forma correcta formularios en las páginas `Login` y `Register`, se invoca la acción `login()` de nuestro `UserContext` para facilitar pruebas y transiciones fluidas de sesión.
+

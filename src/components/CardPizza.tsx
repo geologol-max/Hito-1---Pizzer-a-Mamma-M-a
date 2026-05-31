@@ -48,7 +48,7 @@ const CardPizza: React.FC<CardPizzaProps> = ({ id, name, price, ingredients, img
           
           <div className="flex gap-2 pt-2">
             <Link 
-              to="/pizza/p001" 
+              to={`/pizza/${id}`} 
               className="flex-1 border border-slate-800 text-slate-800 py-2 rounded-md text-sm font-semibold hover:bg-slate-50 transition-colors cursor-pointer flex items-center justify-center gap-1.5 no-underline"
             >
               Ver más <Eye size={14} />

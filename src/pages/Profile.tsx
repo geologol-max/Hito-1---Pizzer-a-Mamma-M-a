@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import { User, LogOut, Mail } from 'lucide-react';
+import { UserContext } from '../context/UserContext';
 
 const Profile = () => {
+  const userCtx = useContext(UserContext);
+  const logout = userCtx ? userCtx.logout : () => {};
   const email = "geologol@gmail.com"; // Estático para este hito
 
   return (
@@ -18,7 +22,10 @@ const Profile = () => {
           <span className="text-slate-600 font-medium">{email}</span>
         </div>
 
-        <button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer uppercase text-xs tracking-widest italic">
+        <button 
+          onClick={logout}
+          className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer uppercase text-xs tracking-widest italic"
+        >
           Cerrar Sesión <LogOut size={16} />
         </button>
       </div>
