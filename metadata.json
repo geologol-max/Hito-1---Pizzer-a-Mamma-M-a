@@ -1,6 +1,6 @@
 {
   "name": "Pizzería Mamma Mía",
-  "description": "Hito 7 - React Router II. Ruta de detalle de pizzas dinámica con useParams y protección de secciones privadas en base al estado del token.",
+  "description": "Hito 8 - Cierre proyecto React. Autenticación real con backend mediante JWT, persistencia de sesión con localStorage, obtención de perfil y checkout seguro.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -12,7 +12,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError('');
@@ -28,9 +28,14 @@ const Login = () => {
       return;
     }
 
-    // Success logic
-    setSuccess(true);
-    login();
+    try {
+      if (userCtx) {
+        await userCtx.login(email, password);
+        setSuccess(true);
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Error de conexión con la API de autenticación');
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 const Profile = () => {
   const userCtx = useContext(UserContext);
   const logout = userCtx ? userCtx.logout : () => {};
-  const email = "geologol@gmail.com"; // Estático para este hito
+  const email = userCtx ? userCtx.email : "geologol@gmail.com";
 
   return (
     <div className="flex-1 bg-slate-50 flex items-center justify-center p-8">

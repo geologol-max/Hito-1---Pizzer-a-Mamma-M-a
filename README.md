@@ -59,3 +59,16 @@ En esta fase se han profundizado los alcances de la navegación y control de acc
   - Si el `token` es `true`, los usuarios activos no pueden visitar `/login` o `/register`, barriendo el acceso y devolviéndoles directamente al inicio (`/`).
 - **Control Integrado en Formularios**: Al enviar de forma correcta formularios en las páginas `Login` y `Register`, se invoca la acción `login()` de nuestro `UserContext` para facilitar pruebas y transiciones fluidas de sesión.
 
+## Hito 8 - JWT Authentication & Cierre de Proyecto
+En este hito final del módulo se completó la integración real con la API del backend utilizando JSON Web Tokens (JWT) y se añadieron controles robustos y de alta experiencia de usuario (UX):
+- **UserContext de Autenticación Real**:
+  - Implementación de asincronismo en `login` y `register` consultando a `/api/auth/login` y `/api/auth/register` en `http://localhost:5000` con persistencia en `localStorage`.
+  - Tratamiento defensivo con fallbacks automáticos fluidos en caso de que la API de desarrollo esté offline en el sandbox de previsualización.
+  - Implementación del endpoint `/api/auth/me` con envío seguro del token en los headers de autorización (`Authorization: Bearer <token_jwt>`).
+- **Páginas de Login y Registro Conectadas**: Consumen los métodos asíncronos reales de `UserContext` mostrando en pantalla errores detallados devueltos por el backend, optimizando el guiado al usuario.
+- **Perfil Auténtico dinámico**: El componente `Profile.tsx` ahora lee y muestra dinámicamente el correo electrónico (`email`) obtenido del módulo autenticado en lugar de utilizar un valor estático duro.
+- **Checkout Seguro con Headers**: La página del carrito (`Cart.tsx`) consume la ruta `POST /api/checkouts` enviando la estructura del pedido (`cart`) y el token de portador (`Bearer token_jwt`) en el header de autorización.
+- **Flujo de Éxito de Compra (Rubrica 8)**: Se añadió un renderizado condicional estilizado en `Cart.tsx` que muestra una pantalla de éxito, limpia el carrito mediante la nueva función `clearCart()` de `CartContext`, y proporciona un botón de retorno rápido al catálogo.
+- **NavBar Sync**: El botón `Logout` de la barra de navegación y del panel de perfil ejecuta la invalidación y purge de las variables de estado y caches locales en `localStorage`.
+
+

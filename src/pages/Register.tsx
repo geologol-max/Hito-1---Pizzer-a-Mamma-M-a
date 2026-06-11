@@ -4,7 +4,6 @@ import { UserContext } from '../context/UserContext';
 
 const Register = () => {
   const userCtx = useContext(UserContext);
-  const login = userCtx ? userCtx.login : () => {};
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,7 +12,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError('');
@@ -34,11 +33,14 @@ const Register = () => {
       return;
     }
 
-    // Success logic
-    setSuccess(true);
-    login();
-    // Reset form optionally or keep it for feedback
-    // setEmail(''); setPassword(''); setConfirmPassword('');
+    try {
+      if (userCtx) {
+        await userCtx.register(email, password);
+        setSuccess(true);
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Error de conexión con la API de autenticación');
+    }
   };
 
   return (
